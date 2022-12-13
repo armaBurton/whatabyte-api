@@ -8,6 +8,7 @@ import { BaseItem, Item } from "./item.interface";
 /**
  * Router Definition
  */
+export const itemsRouter = express.Router();
 
 /**
  * Controller Definitions
