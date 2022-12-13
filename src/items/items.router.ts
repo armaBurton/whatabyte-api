@@ -41,6 +41,17 @@ itemsRouter.get("/:id", async (req: Request, res: Response) => {
 });
 
 // POST items
+itemsRouter.post("/", async (req: Request, res: Response) => {
+  try {
+    const item: BaseItem = req.body;
+
+    const newItem = await ItemService.create(item);
+
+    res.status(201).json(newItem);
+  } catch (error) {
+    res.status(500).send(error.message);
+  }
+});
 
 // PUT items/:id
 
