@@ -15,8 +15,30 @@ export const itemsRouter = express.Router();
  */
 
 // GET items
+itemsRouter.get("/", async (req: Request, res: Response) => {
+  try {
+    const items: Item[] = await ItemService.findAll();
+
+    res.status(200).send(items);
+  } catch (error) {
+    res.status(500).send(error.message);
+  }
+});
 
 // GET items/:id
+itemsRouter.get("/:id", async (req: Request, res: Response) => {
+  const id: number = parseInt(req.params.id, 10);
+
+  try {
+    const item: Item = await ItemService.find(id);
+
+    item && res.status(200).send(item);
+
+    res.status(404).send("Item not found.");
+  } catch (error) {
+    res.status(500).send(error.message);
+  }
+});
 
 // POST items
 
