@@ -27,12 +27,12 @@ app.use(helmet());
 app.use(cors());
 app.use(express.json());
 app.use("/api/menu/items", itemsRouter);
-app.use(errorHandler);
-app.use(notFoundHandler);
 
-app.get("/", (req, res) => {
+app.use("/", (req, res) => {
   res.send(`<h1>Nodemon</h1>`);
 });
+app.use(errorHandler);
+app.use(notFoundHandler);
 
 /**
  * Server Activation
