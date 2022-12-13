@@ -54,5 +54,24 @@ itemsRouter.post("/", async (req: Request, res: Response) => {
 });
 
 // PUT items/:id
+itemsRouter.put("/:id", async (req: Request, res: Response) => {
+  const id: number = parseInt(req.params.id);
+
+  try {
+    const itemUpdate: Item = req.body;
+    const existingItem: Item = await ItemService.find(id);
+
+    if (existingItem) {
+      const updatedItem = await ItemService.update(id, itemUpdate);
+      return res.status(200).json(updatedItem);
+    }
+
+    const newItem = await ItemService.create(itemUpdate);
+
+    res.status(201).json(newItem);
+  } catch (error) {
+    res.status(500).send(error.message);
+  }
+});
 
 // DELETE items/:id
